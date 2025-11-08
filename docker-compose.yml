@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # 模块市场后端服务
+  module-market-backend:
+    build:
+      context: ./modules/module-market/backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    volumes:
+      - ./modules:/app/modules:ro
+    networks:
+      - cancer-network
+
+  # 用户模块后端服务
+  module-user-backend:
+    build:
+      context: ./modules/module-user/backend
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+    networks:
+      - cancer-network
+
+  # API 网关
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MODULE_MARKET_URL=http://module-market-backend:3001
+    depends_on:
+      - module-market-backend
+      - module-user-backend
+    networks:
+      - cancer-network
+
+  # 模块市场前端
+  module-market-frontend:
+    build:
+      context: ./modules/module-market/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=development
+      - PORT=8081
+    networks:
+      - cancer-network
+
+  # 用户模块前端
+  module-user-frontend:
+    build:
+      context: ./modules/module-user/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - NODE_ENV=development
+      - PORT=8082
+    networks:
+      - cancer-network
+
+  # 主应用
+  main-app:
+    build:
+      context: ./main-app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+      - API_GATEWAY_URL=http://api-gateway:3000
+    depends_on:
+      - api-gateway
+      - module-market-frontend
+      - module-user-frontend
+    networks:
+      - cancer-network
+
+networks:
+  cancer-network:
+    driver: bridge

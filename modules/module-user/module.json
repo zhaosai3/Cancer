@@ -1,0 +1,25 @@
+{
+  "name": "module-user",
+  "displayName": "用户管理",
+  "version": "1.0.0",
+  "description": "用户管理模块 - 提供用户的增删改查功能",
+  "type": "business",
+  "enabled": true,
+  "backend": {
+    "url": "http://localhost:3002",
+    "prefix": "/api/user",
+    "health": "/health",
+    "port": 3002
+  },
+  "frontend": {
+    "entry": "http://localhost:8082",
+    "container": "#subapp-container",
+    "activeRule": "/user",
+    "port": 8082
+  },
+  "dependencies": [],
+  "author": "",
+  "license": "MIT",
+  "tags": ["user", "management", "business"],
+  "icon": "👥"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "module-market",
+  "displayName": "模块市场",
+  "version": "1.0.0",
+  "description": "模块市场 - 框架核心服务，负责模块发现、注册和应用编排",
+  "type": "core",
+  "enabled": true,
+  "backend": {
+    "url": "http://localhost:3001",
+    "prefix": "/api/module-market",
+    "health": "/health",
+    "port": 3001
+  },
+  "frontend": {
+    "entry": "http://localhost:8081",
+    "container": "#subapp-container",
+    "activeRule": "/module-market",
+    "port": 8081
+  },
+  "dependencies": [],
+  "author": "",
+  "license": "MIT",
+  "tags": ["core", "market", "discovery"],
+  "icon": "🛒"
+}

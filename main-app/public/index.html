@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancer - 模块化应用框架</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    #app {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 导航栏样式 */
+    .navbar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 0 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .navbar-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .navbar-menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .navbar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: opacity 0.3s;
+      padding: 8px 16px;
+      border-radius: 4px;
+    }
+
+    .navbar-menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-menu a.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+    }
+
+    /* 主内容区域 */
+    .main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 子应用容器 */
+    #subapp-container {
+      flex: 1;
+      overflow: auto;
+      background: white;
+    }
+
+    /* 欢迎页面样式 */
+    .welcome-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .welcome-page h1 {
+      font-size: 48px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .welcome-page p {
+      font-size: 18px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+      text-align: left;
+    }
+
+    .feature-card {
+      padding: 30px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .feature-card h3 {
+      color: #667eea;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* 加载动画 */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+
+    .loading::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+      <div class="navbar-content">
+        <div class="navbar-brand">🎯 Cancer</div>
+        <ul class="navbar-menu">
+          <li><a href="/" id="nav-home">首页</a></li>
+          <li><a href="/module-market" id="nav-market">模块市场</a></li>
+          <li><a href="/user" id="nav-user">用户管理</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <div class="main-container">
+      <!-- 子应用容器 -->
+      <div id="subapp-container">
+        <!-- 欢迎页面 -->
+        <div class="welcome-page" id="welcome-page">
+          <h1>欢迎使用 Cancer 模块化应用框架</h1>
+          <p>基于微前端（qiankun）和微服务架构，打造灵活可扩展的企业级应用平台</p>
+          
+          <div class="feature-grid">
+            <div class="feature-card">
+              <h3>🚀 微前端架构</h3>
+              <p>基于 qiankun 的主应用 + 子应用架构，实现前端模块的独立开发和部署</p>
+            </div>
+            <div class="feature-card">
+              <h3>🔌 微服务后端</h3>
+              <p>独立的业务服务，通过 API 网关统一管理，灵活扩展</p>
+            </div>
+            <div class="feature-card">
+              <h3>📦 模块化设计</h3>
+              <p>前后端一体化的业务能力模块，开箱即用</p>
+            </div>
+            <div class="feature-card">
+              <h3>🛒 模块市场</h3>
+              <p>动态发现、浏览和组合业务模块，快速构建应用</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主应用 JavaScript 将在这里加载 -->
+</body>
+</html>
